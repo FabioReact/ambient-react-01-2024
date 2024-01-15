@@ -1,6 +1,8 @@
 import reactLogo from "./assets/react.svg";
 import viteLogo from "/vite.svg";
 import Paragraph from "./Paragraph";
+import HeroesList from "./pages/HeroesList";
+import { UseEffectPage } from "./pages/UseEffectPage";
 
 const styles = {
   borderColor: "black",
@@ -22,6 +24,8 @@ function App() {
         </a>
       </div>
       <h1>Vite + React</h1>
+      <UseEffectPage />
+      <HeroesList />
       <div className="card">
         <p style={styles} className="red">
           Edit <code>src/App.tsx</code> and save to test HMR
