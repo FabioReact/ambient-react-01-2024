@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import { Hero } from '../types/hero'
 import { getHeroesByLetter } from '../api/heroes'
 import HeroCard from '../components/HeroCard'
+import Loading from '../components/Loading'
 import Spinner from '../components/Spinner/Spinner'
 
 const arrayOfLetters: string[] = []
@@ -61,14 +62,13 @@ const HeroesList = () => {
         ))}
       </ul>
       <p>Vous avez cliqué sur la lettre: {selectedLetter}</p>
-      {loading && <Spinner />}
-      {!loading && (
+      <Loading isLoading={loading}>
         <div className='flex justify-center flex-wrap gap-6'>
           {heroes.map((hero) => (
             <HeroCard key={hero.id} hero={hero} />
           ))}
         </div>
-      )}
+      </Loading>
     </section>
   )
 }
