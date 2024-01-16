@@ -3,6 +3,8 @@ import HeroesList from './pages/HeroesList'
 import { UseEffectPage } from './pages/UseEffectPage'
 import { useState } from 'react'
 import Search from './pages/Search'
+import { useCounter } from './hooks/useCounter'
+import UseStatePage from './pages/UseStatePage'
 
 const styles = {
   borderColor: 'black',
@@ -14,20 +16,26 @@ function App() {
   const name = 'Fabio'
   // const activePAge = "";
   const [activePage, setActivePage] = useState('home')
+  const { counter } = useCounter()
 
   return (
     <>
       <nav>
         <ul>
           <li onClick={() => setActivePage('useEffect')}>UseEffect</li>
+          <li onClick={() => setActivePage('useState')}>UseState</li>
           <li onClick={() => setActivePage('heroes')}>HeroesList</li>
           <li onClick={() => setActivePage('search')}>Search</li>
         </ul>
       </nav>
       <h1>Vite + React</h1>
       {activePage === 'useEffect' && <UseEffectPage />}
+      {activePage === 'useState' && <UseStatePage />}
       {activePage === 'heroes' && <HeroesList />}
       {activePage === 'search' && <Search />}
+      <div>
+        <p>useCouter im HomePage: {counter}</p>
+      </div>
       <div className='card'>
         <p style={styles} className='red'>
           Edit <code>src/App.tsx</code> and save to test HMR
