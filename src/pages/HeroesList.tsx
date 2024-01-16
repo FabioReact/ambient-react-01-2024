@@ -1,13 +1,13 @@
-import { useEffect, useState } from "react";
-import { Hero } from "../types/hero";
-import { getHeroesByLetter } from "../api/heroes";
-import HeroCard from "../components/HeroCard";
-import Spinner from "../components/Spinner/Spinner";
+import { useEffect, useState } from 'react'
+import { Hero } from '../types/hero'
+import { getHeroesByLetter } from '../api/heroes'
+import HeroCard from '../components/HeroCard'
+import Spinner from '../components/Spinner/Spinner'
 
-const arrayOfLetters: string[] = [];
+const arrayOfLetters: string[] = []
 for (let index = 65; index < 91; index++) {
-  const letter = String.fromCharCode(index);
-  arrayOfLetters.push(letter);
+  const letter = String.fromCharCode(index)
+  arrayOfLetters.push(letter)
 }
 
 // Regles fonction pure
@@ -16,40 +16,40 @@ for (let index = 65; index < 91; index++) {
 // Ne modifie pas le scope
 
 const getActiveClassName = (condition: boolean) => {
-  return condition ? "text-red-600 cursor-pointer" : "cursor-pointer";
-};
+  return condition ? 'text-red-600 cursor-pointer' : 'cursor-pointer'
+}
 
 const HeroesList = () => {
   // Declaration des useState
-  const [selectedLetter, setSelectedLetter] = useState<string>("A");
-  const [heroes, setHeroes] = useState<Hero[]>([]);
-  const [loading, setLoading] = useState<boolean>(true);
+  const [selectedLetter, setSelectedLetter] = useState<string>('A')
+  const [heroes, setHeroes] = useState<Hero[]>([])
+  const [loading, setLoading] = useState<boolean>(true)
 
   // Declaration des useEffect
   useEffect(() => {
-    const controller = new AbortController();
-    getHeroesByLetter("A", { signal: controller.signal }).then((data) => {
-      setLoading(false);
-      setHeroes(data);
-    });
+    const controller = new AbortController()
+    getHeroesByLetter('A', { signal: controller.signal }).then((data) => {
+      setLoading(false)
+      setHeroes(data)
+    })
     return () => {
-      controller.abort();
-    };
-  }, []);
+      controller.abort()
+    }
+  }, [])
 
   const onClickHandler = (letter: string) => {
-    setSelectedLetter(letter);
-    setLoading(true);
+    setSelectedLetter(letter)
+    setLoading(true)
     getHeroesByLetter(letter).then((data) => {
-      setLoading(false);
-      setHeroes(data);
-    });
-  };
+      setLoading(false)
+      setHeroes(data)
+    })
+  }
 
   return (
     <section>
       <h1>Heroes List</h1>
-      <ul className="flex justify-center gap-3 text-xl font-semibold">
+      <ul className='flex justify-center gap-3 text-xl font-semibold'>
         {arrayOfLetters.map((letter) => (
           <li
             key={letter}
@@ -63,14 +63,14 @@ const HeroesList = () => {
       <p>Vous avez cliqué sur la lettre: {selectedLetter}</p>
       {loading && <Spinner />}
       {!loading && (
-        <div className="flex justify-center flex-wrap gap-6">
+        <div className='flex justify-center flex-wrap gap-6'>
           {heroes.map((hero) => (
             <HeroCard key={hero.id} hero={hero} />
           ))}
         </div>
       )}
     </section>
-  );
-};
+  )
+}
 
-export default HeroesList;
+export default HeroesList
