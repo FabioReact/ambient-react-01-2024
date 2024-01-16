@@ -1,7 +1,8 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const UseEffectPage = () => {
     const [counter, setCounter] = useState(0)
+    const isMountedRef = useRef<boolean>(false)
 
     useEffect(() => {
         console.log("Premier rendu de useEffect")
@@ -11,11 +12,13 @@ const UseEffectPage = () => {
     }, [])
 
     useEffect(() => {
+        if (isMountedRef.current) {
+            console.log(`Mise à jour de useEffect - avec counter ${counter}`)
+        }
+        isMountedRef.current = true
         console.log(`Premier rendu OU mise à jour de useEffect - avec counter ${counter}`)
-        // Map 1000000
         return () => {
             console.log(`Demontage du composant - avec ${counter}`)
-            // Free Map
         }
     }, [counter])
 
