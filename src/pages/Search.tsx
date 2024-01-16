@@ -1,20 +1,18 @@
 // rafce
-import { useRef, useState } from 'react'
-import { searchHeroes } from '../api/heroes'
-import { Hero } from '../types/hero'
+import { useRef } from 'react'
 // import { HeroCard } from "../components/HeroCard"; // import nommé
 import HeroCard from '../components/HeroCard'
+import Loading from '../components/Loading'
+import { useSearchHero } from '../hooks/useSearchHero'
 
 const Search = () => {
   const inputRef = useRef<HTMLInputElement>(null)
-  const [heroes, setHeroes] = useState<Hero[]>([])
+  const { heroes, loading, error, searchHero } = useSearchHero()
 
-  const onSearchHandler = async (event: React.FormEvent) => {
+  const onSearchHandler = (event: React.FormEvent) => {
     event.preventDefault()
-    console.log(`Vous avez recherché: ${inputRef.current?.value}`)
     const query = inputRef.current!.value
-    const data = await searchHeroes(query)
-    setHeroes(data)
+    searchHero(query)
   }
 
   return (
@@ -27,11 +25,14 @@ const Search = () => {
         </fieldset>
         <button type='submit'>Search Hero</button>
       </form>
-      <div className='flex justify-center flex-wrap gap-6'>
-        {heroes.map((hero) => (
-          <HeroCard key={hero.id} hero={hero} />
-        ))}
-      </div>
+      <Loading isLoading={loading}>
+        <div className='flex justify-center flex-wrap gap-6'>
+          {heroes.map((hero) => (
+            <HeroCard key={hero.id} hero={hero} />
+          ))}
+        </div>
+      </Loading>
+      {error && <p className='text-red-500'>{error}</p> }
     </section>
   )
 }
