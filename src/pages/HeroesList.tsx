@@ -3,7 +3,6 @@ import { Hero } from '../types/hero'
 import { getHeroesByLetter } from '../api/heroes'
 import HeroCard from '../components/HeroCard'
 import Loading from '../components/Loading'
-import Spinner from '../components/Spinner/Spinner'
 
 const arrayOfLetters: string[] = []
 for (let index = 65; index < 91; index++) {

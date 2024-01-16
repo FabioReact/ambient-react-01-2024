@@ -5,6 +5,7 @@ type Props = {
   children: React.ReactNode
 }
 
+// HOC High Order Component - composant prenant en argument un autre composant
 const Loading = ({ isLoading, children }: Props) => {
   if (isLoading)
     return (
