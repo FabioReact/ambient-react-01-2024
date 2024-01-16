@@ -1,11 +1,17 @@
 import Paragraph from './Paragraph'
 import HeroesList from './pages/HeroesList'
 import { UseEffectPage } from './pages/UseEffectPage'
-import { useState } from 'react'
 import Search from './pages/Search'
 import { useCounter } from './hooks/useCounter'
 import UseStatePage from './pages/UseStatePage'
 import Register from './pages/Register'
+import {
+  Route,
+  RouterProvider,
+  createBrowserRouter,
+  createRoutesFromElements,
+} from 'react-router-dom'
+import Layout from './layout/Layout'
 
 const styles = {
   borderColor: 'black',
@@ -36,29 +42,22 @@ const Home = () => {
   )
 }
 
-function App() {
-  // const activePAge = "";
-  const [activePage, setActivePage] = useState('home')
 
-  return (
-    <>
-      <nav>
-        <ul>
-          <li onClick={() => setActivePage('useEffect')}>UseEffect</li>
-          <li onClick={() => setActivePage('useState')}>UseState</li>
-          <li onClick={() => setActivePage('heroes')}>HeroesList</li>
-          <li onClick={() => setActivePage('search')}>Search</li>
-          <li onClick={() => setActivePage('register')}>Register</li>
-        </ul>
-      </nav>
-      <h1>Vite + React</h1>
-      {activePage === 'useEffect' && <UseEffectPage />}
-      {activePage === 'useState' && <UseStatePage />}
-      {activePage === 'heroes' && <HeroesList />}
-      {activePage === 'search' && <Search />}
-      {activePage === 'register' && <Register />}
-    </>
-  )
+
+const router = createBrowserRouter(
+  createRoutesFromElements(
+    <Route path='/' element={<Layout />}>
+      <Route path='heroes' element={<HeroesList />} />
+      <Route path='useEffect' element={<UseEffectPage />} />
+      <Route path='useState' element={<UseStatePage />} />
+      <Route path='search' element={<Search />} />
+      <Route path='register' element={<Register />} />
+    </Route>,
+  ),
+)
+
+const App = () => {
+  return <RouterProvider router={router} />
 }
 
 export default App

@@ -1,6 +1,7 @@
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
+import { registerUser } from '../api/users'
 
 type Inputs = {
   email: string
@@ -12,21 +13,29 @@ const schema = z.object({
   email: z.string().email().min(8, 'Email trop court - 8 caractères minimum'),
   password: z.string().min(8, 'Password trop court - 8 caractères minimum'),
   passwordConfirmation: z.string().min(8, 'Password trop court - 8 caractères minimum'),
+}).refine(values => values.password === values.passwordConfirmation, {
+  path: ['passwordConfirmation'],
+  message: 'les mots de passe doivent être identiques',
 })
 
 const Register = () => {
   const {
     register,
     handleSubmit,
-    watch,
     formState: { errors },
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
   })
-  console.log(watch('password'))
+  console.log(errors)
+  // POST http://localhost:4000/register
+  // {
+  //   "email": "olivier@mail.com",
+  //   "password": "bestPassw0rd"
+  // }
 
   const onSubmitHandler = (data: Inputs) => {
-    console.log(data)
+    // console.log(data)
+    registerUser(data.email, data.password)
   }
 
   return (

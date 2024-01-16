@@ -1,10 +1,5 @@
 import { Hero } from '../types/hero'
-
-class Fetcher {
-  static get(url: string, options?: RequestInit | undefined) {
-    return fetch(url, options).then((response) => response.json())
-  }
-}
+import { Fetcher } from './fetcher'
 
 export const getHeroesByLetter = (
   letter: string,
