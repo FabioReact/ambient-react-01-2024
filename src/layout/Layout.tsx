@@ -4,7 +4,7 @@ const Layout = () => {
   return (
     <>
       <nav>
-        <ul>
+        <ul className="flex justify-center gap-6 mt-1">
           <li>
             <NavLink to='useEffect' className={({ isActive }) => (isActive ? 'text-red-600' : '')}>
               UseEffect

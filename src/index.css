@@ -4,4 +4,17 @@
 
 button {
   /* @apply background  */
+  background-color: black;
+  color: white;
+  border-radius: .25rem;
+  padding: .2rem .5rem;
+}
+
+h1 {
+  text-transform: uppercase;
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 100;
+  letter-spacing: 0.125rem;
+  margin: 1rem 0;
 }
