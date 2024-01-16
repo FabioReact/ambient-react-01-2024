@@ -2,6 +2,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { registerUser } from '../api/users'
+import { useNavigate } from 'react-router-dom'
 
 type Inputs = {
   email: string
@@ -26,16 +27,12 @@ const Register = () => {
   } = useForm<Inputs>({
     resolver: zodResolver(schema),
   })
-  console.log(errors)
-  // POST http://localhost:4000/register
-  // {
-  //   "email": "olivier@mail.com",
-  //   "password": "bestPassw0rd"
-  // }
 
-  const onSubmitHandler = (data: Inputs) => {
-    // console.log(data)
-    registerUser(data.email, data.password)
+  const navigate = useNavigate()
+
+  const onSubmitHandler = async (data: Inputs) => {
+    await registerUser(data.email, data.password)
+    navigate('/profile')
   }
 
   return (

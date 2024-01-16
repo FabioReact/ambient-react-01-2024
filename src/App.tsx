@@ -12,6 +12,8 @@ import {
   createRoutesFromElements,
 } from 'react-router-dom'
 import Layout from './layout/Layout'
+import Profile from './pages/Profile'
+import AuthContext from './context/auth-context'
 
 const styles = {
   borderColor: 'black',
@@ -42,12 +44,11 @@ const Home = () => {
   )
 }
 
-
-
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
       <Route path='heroes' element={<HeroesList />} />
+      <Route path='profile' element={<Profile />} />
       <Route path='useEffect' element={<UseEffectPage />} />
       <Route path='useState' element={<UseStatePage />} />
       <Route path='search' element={<Search />} />
@@ -57,7 +58,16 @@ const router = createBrowserRouter(
 )
 
 const App = () => {
-  return <RouterProvider router={router} />
+  const authContextValues = {
+    connected: false,
+    accessToken: "secretToken",
+  }
+
+  return (
+    <AuthContext.Provider value={authContextValues}>
+      <RouterProvider router={router} />
+    </AuthContext.Provider>
+  )
 }
 
 export default App
