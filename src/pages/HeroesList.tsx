@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { Hero } from "../types/hero";
 import { getHeroesByLetter } from "../api/heroes";
+import HeroCard from "../components/HeroCard";
 
 const arrayOfLetters: string[] = [];
 for (let index = 65; index < 91; index++) {
@@ -21,7 +22,6 @@ const HeroesList = () => {
   // Declaration des useState
   const [selectedLetter, setSelectedLetter] = useState<string>("A");
   const [heroes, setHeroes] = useState<Hero[]>([]);
-  const [counter, setCounter] = useState(0);
 
   // Declaration des useEffect
   useEffect(() => {
@@ -34,15 +34,10 @@ const HeroesList = () => {
     }
   }, [])
 
-  // Si l'etat future depend de la valeur actuelle, il faut passer par la fonction callback car les useState sont asynchrones
-  const onIncrement = () => {
-    setCounter((prevCounter) => prevCounter + 1) // 0 + 1
-    setCounter((prevCounter) => prevCounter + 1) // 1 + 1
-  }
 
   const onClickHandler = (letter: string) => {
+    setSelectedLetter(letter);
     getHeroesByLetter(letter).then((data) => {
-      setSelectedLetter(letter);
       setHeroes(data);
     });
   };
@@ -50,7 +45,6 @@ const HeroesList = () => {
   return (
     <section>
       <h1>Heroes List</h1>
-      <button onClick={onIncrement}>Incrémenter - {counter}</button>
       <ul className="flex justify-center gap-3 text-xl font-semibold">
         {arrayOfLetters.map((letter) => (
           <li key={letter} onClick={() => onClickHandler(letter)} className={getActiveClassName(letter === selectedLetter)}>
@@ -59,13 +53,11 @@ const HeroesList = () => {
         ))}
       </ul>
       <p>Vous avez cliqué sur la lettre: {selectedLetter}</p>
-      {heroes.map((hero) => (
-        <div key={hero.id}>
-          <p>
-            {hero.id} - {hero.name}
-          </p>
-        </div>
-      ))}
+      <div className="flex justify-center flex-wrap gap-6">
+        {heroes.map((hero) => (
+          <HeroCard key={hero.id} hero={hero} />
+        ))}
+      </div>
     </section>
   );
 };

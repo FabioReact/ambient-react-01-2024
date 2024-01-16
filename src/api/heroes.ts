@@ -11,3 +11,6 @@ export const getHeroesByLetter = (letter: string, options?: RequestInit | undefi
   return Fetcher.get(`http://localhost:4000/heroes?name_like=^${letter}`, options)
 };
 
+export const searchHeroes = (query: string): Promise<Hero[]> => {
+  return Fetcher.get(`http://localhost:4000/heroes?name_like=${query}`)
+}
