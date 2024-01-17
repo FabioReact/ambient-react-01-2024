@@ -3,6 +3,7 @@ import { Hero } from '../types/hero'
 import { getHeroesByLetter } from '../api/heroes'
 import HeroCard from '../components/HeroCard'
 import Loading from '../components/Loading'
+import { Link } from 'react-router-dom'
 
 const arrayOfLetters: string[] = []
 for (let index = 65; index < 91; index++) {
@@ -64,7 +65,9 @@ const HeroesList = () => {
       <Loading isLoading={loading}>
         <div className='flex justify-center flex-wrap gap-6'>
           {heroes.map((hero) => (
-            <HeroCard key={hero.id} hero={hero} />
+            <Link to={`${hero.id}`} key={hero.id}>
+              <HeroCard hero={hero} />
+            </Link>
           ))}
         </div>
       </Loading>
