@@ -13,7 +13,9 @@ import {
 } from 'react-router-dom'
 import Layout from './layout/Layout'
 import Profile from './pages/Profile'
-import AuthContext from './context/auth-context'
+import { AuthContextProvider } from './context/auth-context'
+import PrivateRoute from './components/PrivateRoute'
+import Login from './pages/Login'
 
 const styles = {
   borderColor: 'black',
@@ -48,25 +50,32 @@ const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout />}>
       <Route path='heroes' element={<HeroesList />} />
-      <Route path='profile' element={<Profile />} />
       <Route path='useEffect' element={<UseEffectPage />} />
       <Route path='useState' element={<UseStatePage />} />
+      <Route element={<PrivateRoute />}>
+        <Route path='profile' element={<Profile />} />
+      </Route>
+      {/* <Route
+        path='useState'
+        element={
+          <PrivateRoute>
+            <UseStatePage />
+          </PrivateRoute>
+        }
+      /> */}
       <Route path='search' element={<Search />} />
       <Route path='register' element={<Register />} />
+      <Route path='login' element={<Login />} />
+      <Route path='*' element={<div>Oops, page 404 à implementer</div>} />
     </Route>,
   ),
 )
 
 const App = () => {
-  const authContextValues = {
-    connected: false,
-    accessToken: "secretToken",
-  }
-
   return (
-    <AuthContext.Provider value={authContextValues}>
+    <AuthContextProvider>
       <RouterProvider router={router} />
-    </AuthContext.Provider>
+    </AuthContextProvider>
   )
 }
 

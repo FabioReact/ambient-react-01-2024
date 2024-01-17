@@ -1,6 +1,16 @@
 import { NavLink, Outlet } from "react-router-dom"
+import { useAuthContext } from "../context/auth-context"
 
 const Layout = () => {
+  const { accessToken, connected } = useAuthContext()
+  // const links = [
+  //   {
+  //     url: 'register',
+  //     name: '',
+  //     protected: false,
+  //   }
+  // ]
+
   return (
     <>
       <nav>
@@ -15,16 +25,21 @@ const Layout = () => {
               Search
             </NavLink>
           </li> 
-          <li>
+          {!connected && <li>
             <NavLink to='register' className={({ isActive }) => (isActive ? 'text-red-600' : '')}>
               Register
             </NavLink>
-          </li>
-          <li>
+          </li>}
+          {!connected && <li>
+            <NavLink to='login' className={({ isActive }) => (isActive ? 'text-red-600' : '')}>
+              Login
+            </NavLink>
+          </li>}
+          {connected && <li>
             <NavLink to='profile' className={({ isActive }) => (isActive ? 'text-red-600' : '')}>
               Profil
             </NavLink>
-          </li>
+          </li>}
           <li>
             <NavLink to='useEffect' className={({ isActive }) => (isActive ? 'text-red-600' : '')}>
               UseEffect

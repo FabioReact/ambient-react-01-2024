@@ -1,9 +1,9 @@
-import { useContext, useState } from 'react'
-import AuthContext from '../context/auth-context'
+import { useState } from 'react'
+import { useAuthContext } from '../context/auth-context'
 
 const Profile = () => {
   const [backgroundColor, setBackgroundColor] = useState('red')
-  const { accessToken, connected } = useContext(AuthContext)
+  const { accessToken, connected } = useAuthContext()
   console.log({
     accessToken,
     connected,
@@ -24,6 +24,7 @@ const Profile = () => {
         Choose theme:
         <ThemeManager callback={onChangeColorHandler} />
       </div>
+      <p>Access Token: {accessToken}</p>
     </section>
   )
 }
@@ -31,7 +32,7 @@ const Profile = () => {
 type ThemeManagerProps = {
   callback: (color: string) => void
 }
-
+// Props drilling
 const ThemeManager = ({ callback }: ThemeManagerProps) => {
   return (
     <div>

@@ -2,7 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-button {
+button, button[type="submit"] {
   /* @apply background  */
   background-color: black;
   color: white;
