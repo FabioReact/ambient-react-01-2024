@@ -10,6 +10,7 @@ import { UseEffectPage } from './pages/UseEffectPage'
 import Search from './pages/Search'
 import HeroDetails from "./pages/HeroDetails"
 import Battle from "./pages/Battle"
+import UseRedecerPage from "./pages/UseReducerPage"
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -19,6 +20,7 @@ export const router = createBrowserRouter(
         <Route path='battle' element={<Battle />} />
         <Route path='useEffect' element={<UseEffectPage />} />
         <Route path='useState' element={<UseStatePage />} />
+        <Route path='useReducer' element={<UseRedecerPage />} />
         <Route element={<PrivateRoute />}>
           <Route path='profile' element={<Profile />} />
         </Route>
