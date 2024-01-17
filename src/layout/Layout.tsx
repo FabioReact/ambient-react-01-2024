@@ -13,8 +13,8 @@ const Layout = () => {
 
   return (
     <>
-      <nav>
-        <ul className="flex justify-center gap-6 mt-1">
+      <nav className="dark:bg-slate-900 dark:text-gray-100">
+        <ul className="flex justify-center gap-6 pt-1">
           <li>
             <NavLink to='heroes' className={({ isActive }) => (isActive ? 'text-red-600' : '')}>
               Heroes
@@ -57,8 +57,10 @@ const Layout = () => {
           </li>
         </ul>
       </nav>
-      <Outlet />
-      <footer>Copyright - React @2024</footer>
+      <main className="dark:bg-slate-900 dark:text-gray-100 flex-1">
+        <Outlet />
+      </main>
+      <footer className="dark:bg-slate-900 dark:text-gray-100">Copyright - React @2024</footer>
     </>
   )
 }

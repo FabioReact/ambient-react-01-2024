@@ -5,18 +5,21 @@ import Loading from './Loading'
 import { Hero } from '../types/hero'
 
 type HeroLabelProps = {
-    id: number
-    name: string
-    onClick: () => void
+  id: number
+  name: string
+  onClick: () => void
 }
 
 const HeroLabel = ({ id, name, onClick }: HeroLabelProps) => {
-    return (
-        <p onClick={onClick} className='border rounded p-2 my-1 border-gray-700 cursor-pointer hover:bg-gray-100'>
-        <span className='font-semi-bold text-gray-500 pr-2'>{id}</span>
-        {name}
-      </p>
-    )
+  return (
+    <p
+      onClick={onClick}
+      className='border rounded p-2 my-1 border-gray-700 cursor-pointer hover:bg-gray-100'
+    >
+      <span className='font-semi-bold text-gray-500 pr-2'>{id}</span>
+      {name}
+    </p>
+  )
 }
 
 type SelectPlayerProps = {
@@ -54,7 +57,9 @@ const SelectPlayer = ({ label = '', setPlayer }: SelectPlayerProps) => {
       {isError && <p className='text-red-500'>An error occured</p>}
       <Loading isLoading={isLoading || isFetching}>
         <div className='inline-block'>
-          {data?.map((hero) => <HeroLabel id={hero.id} name={hero.name} onClick={() => setPlayer(hero)} />)}
+          {data?.map((hero) => (
+            <HeroLabel id={hero.id} name={hero.name} onClick={() => setPlayer(hero)} />
+          ))}
         </div>
       </Loading>
     </div>

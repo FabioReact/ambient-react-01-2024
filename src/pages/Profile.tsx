@@ -1,13 +1,11 @@
 import { useState } from 'react'
 import { useAuthContext } from '../context/auth-context'
+import { useFavoriteContext } from '../context/favorite-context'
 
 const Profile = () => {
   const [backgroundColor, setBackgroundColor] = useState('red')
-  const { accessToken, connected } = useAuthContext()
-  console.log({
-    accessToken,
-    connected,
-  })
+  const { accessToken } = useAuthContext()
+  const { favoriteHeroes, saveToLocalStorage } = useFavoriteContext()
 
   const onChangeColorHandler = (color: string) => {
     setBackgroundColor(color)
@@ -16,6 +14,16 @@ const Profile = () => {
   return (
     <section>
       <h1>Profil</h1>
+      <div>
+        <h2>Favorite heroes:</h2>
+        {favoriteHeroes.map((hero) => (
+          <p key={hero.id} className='border rounded p-2 my-1 border-gray-700 hover:bg-gray-100'>
+            <span className='font-semi-bold text-gray-500 pr-2'>{hero.id}</span>
+            {hero.name}
+          </p>
+        ))}
+        <button onClick={saveToLocalStorage}>Save to localStorage</button>
+      </div>
       <div
         style={{
           backgroundColor: backgroundColor,
@@ -40,7 +48,5 @@ const ThemeManager = ({ callback }: ThemeManagerProps) => {
     </div>
   )
 }
-
-
 
 export default Profile

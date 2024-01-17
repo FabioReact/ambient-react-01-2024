@@ -1,3 +1,4 @@
+import { useFavoriteContext } from '../context/favorite-context'
 import { Hero } from '../types/hero'
 
 type Props = {
@@ -5,6 +6,7 @@ type Props = {
 }
 
 const HeroCard = ({ hero }: Props) => {
+  const { addHeroToFavorites } = useFavoriteContext()
   return (
     <div className='max-w-xs rounded overflow-hidden shadow-lg'>
       <div className='h-96 overflow-hidden relative'>
@@ -19,6 +21,7 @@ const HeroCard = ({ hero }: Props) => {
           {hero.name} <span className='text-gray-600 text-base'>#{hero.id}</span>
         </p>
         <p className='text-lg mb-2'>{hero.biography['full-name']}</p>
+        <button onClick={() => addHeroToFavorites(hero)}>Add to Favorites</button>
         <p className='text-gray-700'>
           Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ipsa voluptas iste laboriosam
           neque, similique qui.
