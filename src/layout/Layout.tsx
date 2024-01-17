@@ -2,7 +2,7 @@ import { NavLink, Outlet } from "react-router-dom"
 import { useAuthContext } from "../context/auth-context"
 
 const Layout = () => {
-  const { accessToken, connected } = useAuthContext()
+  const { connected } = useAuthContext()
   // const links = [
   //   {
   //     url: 'register',
