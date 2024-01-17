@@ -9,12 +9,14 @@ import HeroesList from './pages/HeroesList'
 import { UseEffectPage } from './pages/UseEffectPage'
 import Search from './pages/Search'
 import HeroDetails from "./pages/HeroDetails"
+import Battle from "./pages/Battle"
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<Layout />}>
         <Route path='heroes' element={<HeroesList />} />
         <Route path='heroes/:id' element={<HeroDetails />} />
+        <Route path='battle' element={<Battle />} />
         <Route path='useEffect' element={<UseEffectPage />} />
         <Route path='useState' element={<UseStatePage />} />
         <Route element={<PrivateRoute />}>

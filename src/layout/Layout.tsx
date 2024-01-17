@@ -25,6 +25,11 @@ const Layout = () => {
               Search
             </NavLink>
           </li> 
+          <li>
+            <NavLink to='battle' className={({ isActive }) => (isActive ? 'text-red-600' : '')}>
+              Battle
+            </NavLink>
+          </li> 
           {!connected && <li>
             <NavLink to='register' className={({ isActive }) => (isActive ? 'text-red-600' : '')}>
               Register
