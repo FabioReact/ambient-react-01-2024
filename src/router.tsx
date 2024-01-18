@@ -4,6 +4,7 @@ import PrivateRoute from './components/PrivateRoute'
 import UseStatePage from './pages/UseStatePage'
 import { UseEffectPage } from './pages/UseEffectPage'
 import { lazy } from "react"
+import Home from "./pages/Home"
 
 const HeroesList = lazy(() => import('./pages/HeroesList'))
 const HeroDetails = lazy(() => import('./pages/HeroDetails'))
@@ -18,6 +19,7 @@ const Optimisations = lazy(() => import('./pages/Optimisations'))
 export const router = createBrowserRouter(
     createRoutesFromElements(
       <Route path='/' element={<Layout />}>
+        <Route element={<Home />} index />
         <Route path='heroes' element={<HeroesList />} />
         <Route path='heroes/:id' element={<HeroDetails />} />
         <Route path='battle' element={<Battle />} />

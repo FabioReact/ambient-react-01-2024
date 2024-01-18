@@ -1,31 +1,18 @@
-import Paragraph from '../components/Paragraph'
-import { useCounter } from '../hooks/useCounter'
-
-const styles = {
-  borderColor: 'black',
-  borderStyle: 'solid',
-  borderWidth: '1px',
-}
+import { decrement, increment, incrementByAmount } from "../redux/reducers/counterSlice"
+import { useAppDispatch, useAppSelector } from "../redux/hooks"
 
 const Home = () => {
-  const name = 'Fabio'
-  const { counter } = useCounter()
-
+  // const counter = useSelector((state: RootState) => state.counter)
+  const counter = useAppSelector((state) => state.counter)
+  const dispatch = useAppDispatch()
   return (
     <>
       <div>
-        <p>useCouter im HomePage: {counter}</p>
+        <p>Value of counter in store: {counter.value}</p>
+        <button onClick={() => dispatch(increment())}>Increment</button>
+        <button onClick={() => dispatch(incrementByAmount(5))}>Increment by 5</button>
+        <button onClick={() => dispatch(decrement())}>Decrement</button>
       </div>
-      <div className='card'>
-        <p style={styles} className='red'>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-        <Paragraph>Contenu enfant de la balise Paragraph</Paragraph>
-      </div>
-      <p className='read-the-docs'>
-        Learn React with {name} - {3 + 4} - Tableau: {['useState', 'useEffect']}- Boolean:{' '}
-        {name === 'Fabio' ? 'true' : 'false'} - Null: {null} - Undefined: {undefined}
-      </p>
     </>
   )
 }
