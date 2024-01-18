@@ -1,11 +1,13 @@
 import { configureStore } from '@reduxjs/toolkit'
 import counterReducer from './reducers/counterSlice'
 import authenticationSlice from './reducers/authenticationSlice'
+import favoriteHeroesSlice from './reducers/favoriteHeroesSlice'
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     authentication: authenticationSlice,
+    favoriteHeroes: favoriteHeroesSlice,
   },
 })
 

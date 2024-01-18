@@ -1,11 +1,14 @@
 import { useState } from 'react'
-import { useFavoriteContext } from '../context/favorite-context'
 import { useAppSelector } from '../redux/hooks'
+import { useLocalStorage } from 'usehooks-ts'
+import { Hero } from '../types/hero'
 
 const Profile = () => {
   const [backgroundColor, setBackgroundColor] = useState('red')
   const { accessToken } = useAppSelector(state => state.authentication)
-  const { favoriteHeroes, saveToLocalStorage } = useFavoriteContext()
+  const { heroes } = useAppSelector(state => state.favoriteHeroes)
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const [savedFavorites, setSavedFavorites] = useLocalStorage<Hero[]>('favortiesHeroes', [])
 
   const onChangeColorHandler = (color: string) => {
     setBackgroundColor(color)
@@ -16,13 +19,13 @@ const Profile = () => {
       <h1>Profil</h1>
       <div>
         <h2>Favorite heroes:</h2>
-        {favoriteHeroes.map((hero) => (
+        {heroes.map((hero) => (
           <p key={hero.id} className='border rounded p-2 my-1 border-gray-700 hover:bg-gray-100'>
             <span className='font-semi-bold text-gray-500 pr-2'>{hero.id}</span>
             {hero.name}
           </p>
         ))}
-        <button onClick={saveToLocalStorage}>Save to localStorage</button>
+        <button onClick={() => setSavedFavorites(heroes)}>Save to localStorage</button>
       </div>
       <div
         style={{
