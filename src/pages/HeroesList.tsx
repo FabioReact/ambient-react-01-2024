@@ -1,9 +1,8 @@
-import { useEffect, useState } from 'react'
-import { Hero } from '../types/hero'
-import { getHeroesByLetter } from '../api/heroes'
+import { useState } from 'react'
 import HeroCard from '../components/HeroCard'
 import Loading from '../components/Loading'
 import { Link } from 'react-router-dom'
+import { useGetHeroesByLetterQuery } from '../redux/services/heroes'
 
 const arrayOfLetters: string[] = []
 for (let index = 65; index < 91; index++) {
@@ -23,28 +22,12 @@ const getActiveClassName = (condition: boolean) => {
 const HeroesList = () => {
   // Declaration des useState
   const [selectedLetter, setSelectedLetter] = useState<string>('A')
-  const [heroes, setHeroes] = useState<Hero[]>([])
-  const [loading, setLoading] = useState<boolean>(true)
-
-  // Declaration des useEffect
-  useEffect(() => {
-    const controller = new AbortController()
-    getHeroesByLetter('A', { signal: controller.signal }).then((data) => {
-      setLoading(false)
-      setHeroes(data)
-    })
-    return () => {
-      controller.abort()
-    }
-  }, [])
+  const { isLoading, data: heroes } = useGetHeroesByLetterQuery(selectedLetter)
+  // const [getHeroesByLetter, { isLoading, data: heroes }] = useLazyGetHeroesByLetterQuery()
 
   const onClickHandler = (letter: string) => {
     setSelectedLetter(letter)
-    setLoading(true)
-    getHeroesByLetter(letter).then((data) => {
-      setLoading(false)
-      setHeroes(data)
-    })
+    // getHeroesByLetter(letter)
   }
 
   return (
@@ -62,9 +45,9 @@ const HeroesList = () => {
         ))}
       </ul>
       <p>Vous avez cliqué sur la lettre: {selectedLetter}</p>
-      <Loading isLoading={loading}>
+      <Loading isLoading={isLoading}>
         <div className='flex justify-center flex-wrap gap-6'>
-          {heroes.map((hero) => (
+          {heroes && heroes.map((hero) => (
             <Link to={`${hero.id}`} key={hero.id}>
               <HeroCard hero={hero} />
             </Link>

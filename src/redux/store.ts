@@ -2,13 +2,16 @@ import { configureStore } from '@reduxjs/toolkit'
 import counterReducer from './reducers/counterSlice'
 import authenticationSlice from './reducers/authenticationSlice'
 import favoriteHeroesSlice from './reducers/favoriteHeroesSlice'
+import { heroesApi } from './services/heroes'
 
 export const store = configureStore({
   reducer: {
     counter: counterReducer,
     authentication: authenticationSlice,
     favoriteHeroes: favoriteHeroesSlice,
+    [heroesApi.reducerPath]: heroesApi.reducer,
   },
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(heroesApi.middleware),
 })
 
 // Infer the `RootState` and `AppDispatch` types from the store itself
