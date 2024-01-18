@@ -6,6 +6,7 @@ import { UseEffectPage } from './pages/UseEffectPage'
 import { lazy } from "react"
 import { getHeroesByLetter } from "./api/heroes"
 import { usersLoaderData } from "./pages/Users"
+import { heroDetailsLoader } from "./pages/HeroDetails"
 
 const HeroesList = lazy(() => import('./pages/HeroesList'))
 const HeroDetails = lazy(() => import('./pages/HeroDetails'))
@@ -24,7 +25,7 @@ export const router = createBrowserRouter(
         <Route path='heroes' element={<HeroesList />} loader={({ request }) => {
           return getHeroesByLetter('A', { signal: request.signal })
         }} />
-        <Route path='heroes/:id' element={<HeroDetails />} />
+        <Route path='heroes/:id' element={<HeroDetails />} loader={heroDetailsLoader} />
         <Route path='battle' element={<Battle />} />
         <Route path='users' element={<Users />} loader={usersLoaderData} errorElement={<p>Oops, erreur non prévue</p>} />
         <Route path='useEffect' element={<UseEffectPage />} />
