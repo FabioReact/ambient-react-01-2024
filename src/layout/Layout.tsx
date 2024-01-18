@@ -16,6 +16,11 @@ const Layout = () => {
       <nav className="dark:bg-slate-900 dark:text-gray-100">
         <ul className="flex justify-center gap-6 pt-1">
           <li>
+            <NavLink to='/' className={({ isActive }) => (isActive ? 'text-red-600' : '')}>
+              Home
+            </NavLink>
+          </li>
+          <li>
             <NavLink to='heroes' className={({ isActive }) => (isActive ? 'text-red-600' : '')}>
               Heroes
             </NavLink>
