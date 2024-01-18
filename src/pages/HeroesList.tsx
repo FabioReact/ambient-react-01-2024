@@ -1,9 +1,9 @@
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import { Hero } from '../types/hero'
 import { getHeroesByLetter } from '../api/heroes'
 import HeroCard from '../components/HeroCard'
 import Loading from '../components/Loading'
-import { Link } from 'react-router-dom'
+import { Link, useLoaderData } from 'react-router-dom'
 
 const arrayOfLetters: string[] = []
 for (let index = 65; index < 91; index++) {
@@ -23,20 +23,9 @@ const getActiveClassName = (condition: boolean) => {
 const HeroesList = () => {
   // Declaration des useState
   const [selectedLetter, setSelectedLetter] = useState<string>('A')
-  const [heroes, setHeroes] = useState<Hero[]>([])
-  const [loading, setLoading] = useState<boolean>(true)
-
-  // Declaration des useEffect
-  useEffect(() => {
-    const controller = new AbortController()
-    getHeroesByLetter('A', { signal: controller.signal }).then((data) => {
-      setLoading(false)
-      setHeroes(data)
-    })
-    return () => {
-      controller.abort()
-    }
-  }, [])
+  const initialHeroes = useLoaderData()
+  const [heroes, setHeroes] = useState<Hero[]>(initialHeroes as Hero[])
+  const [loading, setLoading] = useState<boolean>(false)
 
   const onClickHandler = (letter: string) => {
     setSelectedLetter(letter)

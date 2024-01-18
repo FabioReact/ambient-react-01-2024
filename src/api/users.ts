@@ -1,3 +1,4 @@
+import { User } from '../types/user'
 import { Fetcher } from './fetcher'
 
 export const registerUser = (email: string, password: string) => {
@@ -12,4 +13,8 @@ export const loginUser = (email: string, password: string) => {
     email,
     password,
   })
+}
+
+export const getUsers = (): Promise<User> => {
+  return Fetcher.get('http://localhost:4000/users')
 }

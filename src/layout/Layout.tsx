@@ -65,6 +65,11 @@ const Layout = () => {
               Optimisations
             </NavLink>
           </li>
+          <li>
+            <NavLink to='users' className={({ isActive }) => (isActive ? 'text-red-600' : '')}>
+              Users
+            </NavLink>
+          </li>
         </ul>
       </nav>
       <main className="dark:bg-slate-900 dark:text-gray-100 flex-1">
