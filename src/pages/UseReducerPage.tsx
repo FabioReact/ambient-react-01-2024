@@ -18,7 +18,7 @@ const reducer = (state: typeof initialState, action: ActionType) => {
   }
 }
 
-const UseRedecerPage = () => {
+const UseReducerPage = () => {
   // const [notions, setNotions] = useState(['useState', 'useEffect', 'useContext', 'useRef'])
   const [notions, dispatch] = useReducer(reducer, initialState)
   const inputRef = useRef<HTMLInputElement>(null)
@@ -35,7 +35,7 @@ const UseRedecerPage = () => {
 
   return (
     <section>
-        <h1>Comprendre useRedecer</h1>
+        <h1>Comprendre useReducer</h1>
         <form onSubmit={onSubmitHandler}>
             <label htmlFor="notions">Notions:</label>
             <input type="text" id="notions" name="notions" ref={inputRef} />
@@ -48,4 +48,4 @@ const UseRedecerPage = () => {
   )
 }
 
-export default UseRedecerPage
+export default UseReducerPage

@@ -1,16 +1,19 @@
 import { createBrowserRouter, createRoutesFromElements, Route } from "react-router-dom"
 import Layout from './layout/Layout'
-import Profile from './pages/Profile'
 import PrivateRoute from './components/PrivateRoute'
-import Login from './pages/Login'
 import UseStatePage from './pages/UseStatePage'
-import Register from './pages/Register'
-import HeroesList from './pages/HeroesList'
 import { UseEffectPage } from './pages/UseEffectPage'
-import Search from './pages/Search'
-import HeroDetails from "./pages/HeroDetails"
-import Battle from "./pages/Battle"
-import UseRedecerPage from "./pages/UseReducerPage"
+import { lazy } from "react"
+
+const HeroesList = lazy(() => import('./pages/HeroesList'))
+const HeroDetails = lazy(() => import('./pages/HeroDetails'))
+const Profile = lazy(() => import('./pages/Profile'))
+const Login = lazy(() => import('./pages/Login'))
+const Register = lazy(() => import('./pages/Register'))
+const Search = lazy(() => import('./pages/Search'))
+const Battle = lazy(() => import('./pages/Battle'))
+const UseReducerPage = lazy(() => import('./pages/UseReducerPage'))
+const Optimisations = lazy(() => import('./pages/Optimisations'))
 
 export const router = createBrowserRouter(
     createRoutesFromElements(
@@ -20,7 +23,8 @@ export const router = createBrowserRouter(
         <Route path='battle' element={<Battle />} />
         <Route path='useEffect' element={<UseEffectPage />} />
         <Route path='useState' element={<UseStatePage />} />
-        <Route path='useReducer' element={<UseRedecerPage />} />
+        <Route path='useReducer' element={<UseReducerPage />} />
+        <Route path='optimisations' element={<Optimisations />} />
         <Route element={<PrivateRoute />}>
           <Route path='profile' element={<Profile />} />
         </Route>

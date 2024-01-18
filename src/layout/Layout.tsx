@@ -60,6 +60,11 @@ const Layout = () => {
               UseReducer
             </NavLink>
           </li>
+          <li>
+            <NavLink to='optimisations' className={({ isActive }) => (isActive ? 'text-red-600' : '')}>
+              Optimisations
+            </NavLink>
+          </li>
         </ul>
       </nav>
       <main className="dark:bg-slate-900 dark:text-gray-100 flex-1">
