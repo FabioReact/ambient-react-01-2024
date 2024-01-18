@@ -3,9 +3,9 @@ import type { PayloadAction } from '@reduxjs/toolkit'
 
 // Define a type for the slice state
 type AuthenticationState = {
-    accessToken: string
-    email: string
-    connected: boolean
+  accessToken: string
+  email: string
+  connected: boolean
 }
 
 // Define the initial state using that type
@@ -20,14 +20,17 @@ export const authenticationSlice = createSlice({
   // `createSlice` will infer the state type from the `initialState` argument
   initialState,
   reducers: {
-    login: (state, action: PayloadAction<{ accessToken: string, email: string }>) => {
+    login: (state, action: PayloadAction<{ accessToken: string; email: string }>) => {
       state.connected = true
       state.accessToken = action.payload.accessToken
       state.email = action.payload.email
     },
+    logout: () => {
+      return initialState
+    },
   },
 })
 
-export const { login } = authenticationSlice.actions
+export const { login, logout } = authenticationSlice.actions
 
 export default authenticationSlice.reducer
