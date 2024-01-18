@@ -1,10 +1,10 @@
 import { useState } from 'react'
-import { useAuthContext } from '../context/auth-context'
 import { useFavoriteContext } from '../context/favorite-context'
+import { useAppSelector } from '../redux/hooks'
 
 const Profile = () => {
   const [backgroundColor, setBackgroundColor] = useState('red')
-  const { accessToken } = useAuthContext()
+  const { accessToken } = useAppSelector(state => state.authentication)
   const { favoriteHeroes, saveToLocalStorage } = useFavoriteContext()
 
   const onChangeColorHandler = (color: string) => {

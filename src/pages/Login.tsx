@@ -1,8 +1,9 @@
 import { useForm } from 'react-hook-form'
 import { loginUser } from '../api/users'
 import { useNavigate } from 'react-router-dom'
-import { useAuthContext } from '../context/auth-context'
 import { useState } from 'react'
+import { useAppDispatch } from '../redux/hooks'
+import { login } from '../redux/reducers/authenticationSlice'
 
 type Inputs = {
   email: string
@@ -15,7 +16,7 @@ const Login = () => {
     handleSubmit,
     formState: { errors },
   } = useForm<Inputs>()
-  const { login } = useAuthContext()
+  const dispatch = useAppDispatch()
   const navigate = useNavigate()
   const [error, setError] = useState('')
 
@@ -26,7 +27,7 @@ const Login = () => {
       return setError('Invalid Password')
     }
     const data = await response.json()
-    login(data.accessToken)
+    dispatch(login({ accessToken: data.accessToken, email: formData.email}))
     navigate('/profile')
   }
 

@@ -1,8 +1,10 @@
 import { NavLink, Outlet } from "react-router-dom"
-import { useAuthContext } from "../context/auth-context"
+import { useAppSelector } from "../redux/hooks"
+
+
 
 const Layout = () => {
-  const { connected } = useAuthContext()
+  const { connected } = useAppSelector(state => state.authentication)
   // const links = [
   //   {
   //     url: 'register',

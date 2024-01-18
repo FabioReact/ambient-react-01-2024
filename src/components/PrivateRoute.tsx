@@ -1,8 +1,8 @@
 import { Navigate, Outlet } from 'react-router-dom'
-import { useAuthContext } from '../context/auth-context'
+import { useAppSelector } from '../redux/hooks'
 
 const PrivateRoute = () => {
-  const { connected } = useAuthContext()
+  const { connected } = useAppSelector(state => state.authentication)
 
   if (!connected) return <Navigate to='/heroes' /> // -> va remplacer history par la nouvelle url '/heroes'
   return <Outlet />
